@@ -29,5 +29,12 @@ def validate_weather_response(data):
     if len(set(lengths)) != 1:
         raise ValueError("Weather data arrays have unequal lengths.")
 
+    if lengths[0] == 0:
+        raise ValueError("Weather data arrays are empty.")
+
+    for field in ["temperature_2m_max", "temperature_2m_min"]:
+        for value in daily_data[field]:
+            if not isinstance(value, (int, float)):
+                raise ValueError(f"Field '{field}' contains a non-numeric value: {value!r}")
     return True
      

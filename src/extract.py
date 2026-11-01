@@ -26,7 +26,8 @@ def extract_weather_data(latitude, longitude, timezone="auto"):
         raise RuntimeError("The API request timed out") from error
     except requests.exceptions.HTTPError as error:
         raise RuntimeError(f"HTTP error occurred: {error}") from error
+    except ValueError as error:
+            raise RuntimeError("Error occurred while parsing the JSON response") from error
     except requests.exceptions.RequestException as error:
         raise RuntimeError(f"Error occurred during the API request: {error}") from error
-    except ValueError as error:
-        raise RuntimeError("Error occurred while parsing the JSON response") from error
+    
